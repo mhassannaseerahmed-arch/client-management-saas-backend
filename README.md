@@ -2,6 +2,22 @@
 
 A robust, scalable backend for a Client Management SaaS application, built with **Express**, **TypeScript**, and **MongoDB**. This project provides a full-featured API for managing clients, employees, projects, and tasks, complete with JWT-based authentication and secure session management.
 
+## 📊 System Architecture
+
+```mermaid
+graph TD
+  User((User/Frontend)) <--> |REST API / JWT| Express[Express.js Server]
+  subgraph Backend
+    Express --> Auth[Auth Middleware]
+    Auth --> Routes[Route Handlers]
+    Routes --> Models[Mongoose Models]
+  end
+  Models <--> |ODM| MongoDB[(MongoDB Atlas)]
+  
+  style Express fill:#f9f,stroke:#333,stroke-width:2px
+  style MongoDB fill:#bbf,stroke:#333,stroke-width:2px
+```
+
 ## 🚀 Features
 
 -   **Authentication System**:
@@ -15,6 +31,18 @@ A robust, scalable backend for a Client Management SaaS application, built with 
 -   **Database Integration**: Seamless MongoDB integration using Mongoose with optimized schemas and indexing.
 -   **Type Safety**: Built entirely with TypeScript for enhanced developer experience and code reliability.
 -   **Deployment Ready**: Pre-configured for deployment on Vercel with serverless support.
+
+## 🗄️ Data Relationships
+
+```mermaid
+erDiagram
+    USER ||--o{ CLIENT : manages
+    USER ||--o{ EMPLOYEE : manages
+    USER ||--o{ PROJECT : manages
+    CLIENT ||--o{ PROJECT : "belongs to"
+    PROJECT ||--o{ TASK : contains
+    EMPLOYEE ||--o{ TASK : assigned
+```
 
 ## 🛠️ Tech Stack
 
